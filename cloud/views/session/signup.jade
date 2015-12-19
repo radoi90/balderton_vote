@@ -1,0 +1,25 @@
+- var stylesheet = "session"
+- var title = "Sign Up"
+include ../_header
+
+.container
+  h1 Sign Up or 
+    a(href='/login') Log In
+    
+  
+  form(method='post', action='/signup')
+    .form-group
+      label(for='email') Balderton email
+      input#email.form-control(type='email', name='email', placeholder='Balderton email')
+
+    .form-group
+      label(for='name') Full name
+      input#name.form-control(type='text', name='name', placeholder='Full Name')
+
+    .form-group
+      label(for='password') Password
+      input#password.form-control(type='password', name='password')
+
+    button.btn.btn-default(type='submit') Sign Up
+
+include ../_footer
