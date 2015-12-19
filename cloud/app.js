@@ -8,6 +8,7 @@ var parseExpressHttpsRedirect = require('parse-express-https-redirect');
 var parseExpressCookieSession = require('parse-express-cookie-session');
 
 // Controller code in separate files.
+var sessionController = require('cloud/controllers/session.js');
 var adminController = require('cloud/controllers/admin.js');
 
 
@@ -51,7 +52,7 @@ app.get('/', authenticate, adminController.index);
 
 
 // Route for admin pages
-app.get('/admin', adminController.index);
+app.get('/admin', authenticate, adminController.index);
 
 // Required for initializing Express app in Cloud Code.
 app.listen();
