@@ -12,6 +12,7 @@ var app = express();
 // Global app configuration section
 app.set('views', 'cloud/views');
 app.set('view engine', 'ejs');
+app.set('view engine', 'jade');
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 
