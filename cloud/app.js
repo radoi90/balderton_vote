@@ -33,8 +33,24 @@ var authenticate = function(req, res, next) {
 	res.redirect('/login');
 };
 
+var loadUser = function(req, res, next) {
+	if (Parse.User.current()) {
+		return Parse.User.current().fetch().then(function(user){
+			res.locals.current_user = user;
+
+			return next();
+		},
+		function(error) {
+			res.send(500, 'Failed loading current user')
+		});
+	}
+
+	return next();
+}
 
 /**** ==== ROUTING ==== ****/
+
+app.all('*', loadUser);
 
 // User sessions
 app.get('/login', function(req, res) {
