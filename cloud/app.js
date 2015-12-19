@@ -1,4 +1,5 @@
 var express = require('express');
+var moment = require('moment');
 var _ = require('underscore');
 
 // Force https traffic
@@ -10,7 +11,6 @@ var parseExpressCookieSession = require('parse-express-cookie-session');
 // Controller code in separate files.
 var sessionController = require('cloud/controllers/session.js');
 var adminController = require('cloud/controllers/admin.js');
-
 var companiesController = require('cloud/controllers/companies.js')
 
 // Required for initializing Express app in Cloud Code.
@@ -26,6 +26,10 @@ app.use(parseExpressHttpsRedirect());
 app.use(parseExpressCookieSession({ cookie: { maxAge: 3600000 } }));
 
 app.locals._ = _;
+app.locals.formatTime = function(time) {
+  return moment(time).format('MMMM Do YYYY, h:mm a');
+};
+
 var authenticate = function(req, res, next) {
 	if (Parse.User.current()) {
 		return next();
