@@ -1,0 +1,15 @@
+- var title = 'Edit Company'
+
+include ../_header
+
+.container
+  h1 Edit Company
+  form(method='post', action='/companies/#{company.id}')
+    .form-group
+      label(for='name') Company Name
+      input#name.form-control(type='text', name='name', placeholder='Company name', value="#{company.get('name')}")
+    .form-group
+      input(type='hidden', name='_method', value='put')
+      input.btn.btn-default(type='submit', value='Update')
+
+include ../_footer

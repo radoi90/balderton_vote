@@ -1,0 +1,17 @@
+- var stylesheet = 'admin'
+- var title = 'New Vote'
+include ../_header
+
+.container
+  h1 New Vote
+
+  h3 Company Information
+  form(method='post', action='/companies')
+    .form-group
+      label(for='name') Company Name
+      input#name.form-control(type='text', name='name', placeholder='Company Name')
+
+    .form-group
+      input.btn.btn-default(type='submit', value='Create Company')
+
+include ../_footer

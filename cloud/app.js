@@ -11,6 +11,7 @@ var parseExpressCookieSession = require('parse-express-cookie-session');
 var sessionController = require('cloud/controllers/session.js');
 var adminController = require('cloud/controllers/admin.js');
 
+var companiesController = require('cloud/controllers/companies.js')
 
 // Required for initializing Express app in Cloud Code.
 var app = express();
@@ -69,6 +70,15 @@ app.get('/', authenticate, adminController.index);
 
 // Route for admin pages
 app.get('/admin', authenticate, adminController.index);
+
+// RESTful routes for Companies
+app.get('/companies', companiesController.index);
+app.get('/companies/new', companiesController.new);
+app.post('/companies', companiesController.create);
+app.get('/companies/:id', companiesController.show);
+app.get('/companies/:id/edit', companiesController.edit);
+app.put('/companies/:id', companiesController.update);
+app.del('/companies/:id', companiesController.delete);
 
 // Required for initializing Express app in Cloud Code.
 app.listen();
