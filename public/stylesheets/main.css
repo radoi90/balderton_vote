@@ -1,0 +1,39 @@
+@font-face{font-family:'Univers 45 Light';src:url(../fonts/Univers-Light.eot);src:url(../fonts/Univers-Light.eot?#iefix) format('embedded-opentype'),url(../fonts/Univers-Light.woff) format('woff'),url(../fonts/Univers-Light.ttf) format('truetype');font-weight:100}@font-face{font-family:condensed;src:url(../fonts/univers-condensedlight-webfont.eot.eot);src:url(../fonts/univers-condensed-webfont.eot?#iefix) format('embedded-opentype'),url(../fonts/univers-condensed-webfont.woff) format('woff'),url(../fonts/univers-condensed-webfont.ttf) format('truetype'),url(../fonts/univers-condensed-webfont.svg#SourceSansProLightwebfont) format('svg');font-weight:400;font-style:normal}@font-face{font-family:condensed;src:url(../fonts/univers-condensedlight-webfont.eot.eot);src:url(../fonts/univers-condensedlight-webfont.eot?#iefix) format('embedded-opentype'),url(../fonts/univers-condensedlight-webfont.woff) format('woff'),url(../fonts/univers-condensedlight-webfont.ttf) format('truetype'),url(../fonts/univers-condensedlight-webfont.svg#univers-condensedlight-webfont.eot) format('svg');font-weight:100;font-style:normal}
+
+
+body {
+    padding-top: 70px;
+    font-family: condensed,georgia,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    color: #202125;
+}
+
+nav a {
+    font-size: 1em;
+    text-transform: uppercase;
+    letter-spacing: auto;
+    color: #555;
+    font-family: condensed,georgia,sans-serif;
+}
+
+.sprite {
+    background-image: url(../img/sprite@1.png);
+    background-size: 600px 200px;
+    background-repeat: no-repeat;
+}
+
+.logo {
+    width: 117px;
+    height: 21px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    font-size: 24px;
+}
+
+
+footer {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: .975em;
+}
