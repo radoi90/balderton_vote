@@ -1,0 +1,39 @@
+- var title = partner.get('name');
+
+include ../_header
+.container
+  a(href='/partners') Back to Team
+
+  section#partner_information
+    h1 Partner: #{partner.get('name')}
+    h3 Email: 
+      a(href='mailto:#{partner.get('email')}') #{partner.get('email')}
+    - if(partner.get('isArchived')) {
+    h3 This partner account has been deleted.
+    - } 
+  
+  section#partner_votes
+    h3 Investment votes
+
+    - if (votes.length == 0) {
+      p This partner has no voting history.
+    - } else {
+      include _votes
+    - }
+
+  - if (current_user.get('isOp') && !partner.get('isArchived')) {
+  section#partner_action
+    h3 Admin Actions
+    .form-group
+      .btn-group
+        a.btn.btn-default(href="mailto:#{partner.get('email')}?subject=Join Balderton Investment voting platform&body=Hi #{partner.get('name')}, Follow this link to claim your Partner profile: https://bdtvoteved.parseapp.com/join/#{partner.get('authToken')}") Re-send invite
+    .form-group
+      .btn-group
+        a.btn.btn-default(href='partners/#{partner.id}/edit') Edit
+      .btn-group
+        form(method='POST', action='/partners/#{partner.id}')
+          input(type='hidden', name='_method', value='DELETE')
+          input.btn.btn-danger(type='submit', value='Archive')
+  - }
+
+include ../_footer

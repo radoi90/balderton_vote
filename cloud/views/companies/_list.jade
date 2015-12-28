@@ -12,11 +12,11 @@ table.table
       td
         a(href='/companies/' + company.id) #{company.get('name')}
       - if (company.get('result')) {
-        td #{company.get('result')}
+      td: span.vote-status.label(class="label-#{company.get('result') >= 8 ? 'success' : 'danger'}") #{company.get('result') >= 8 ? 'Passed' : 'Failed'}: #{company.get('result')} 
       - } else if (company.get('isVotingOpen')) {
-        td Vote open
+      td: span.vote-status.label.label-primary Pending
       - } else {
-        td Vote cancelled
+      td: span.vote-status.label.label-default Cancelled
       - }
-      td #{formatTime(company.get('createdAt'))}
+      td #{formatTime(company.get('updatedAt'))}
   - })

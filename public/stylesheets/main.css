@@ -1,6 +1,5 @@
 @font-face{font-family:'Univers 45 Light';src:url(../fonts/Univers-Light.eot);src:url(../fonts/Univers-Light.eot?#iefix) format('embedded-opentype'),url(../fonts/Univers-Light.woff) format('woff'),url(../fonts/Univers-Light.ttf) format('truetype');font-weight:100}@font-face{font-family:condensed;src:url(../fonts/univers-condensedlight-webfont.eot.eot);src:url(../fonts/univers-condensed-webfont.eot?#iefix) format('embedded-opentype'),url(../fonts/univers-condensed-webfont.woff) format('woff'),url(../fonts/univers-condensed-webfont.ttf) format('truetype'),url(../fonts/univers-condensed-webfont.svg#SourceSansProLightwebfont) format('svg');font-weight:400;font-style:normal}@font-face{font-family:condensed;src:url(../fonts/univers-condensedlight-webfont.eot.eot);src:url(../fonts/univers-condensedlight-webfont.eot?#iefix) format('embedded-opentype'),url(../fonts/univers-condensedlight-webfont.woff) format('woff'),url(../fonts/univers-condensedlight-webfont.ttf) format('truetype'),url(../fonts/univers-condensedlight-webfont.svg#univers-condensedlight-webfont.eot) format('svg');font-weight:100;font-style:normal}
 
-
 body {
     padding-top: 70px;
     font-family: condensed,georgia,sans-serif;
@@ -31,9 +30,28 @@ nav a {
     font-size: 24px;
 }
 
-
 footer {
     padding-top: 15px;
     padding-bottom: 15px;
     font-size: .975em;
+}
+
+section {
+    margin: 10px 0;
+}
+
+/* Forms */
+.form-group {
+    max-width: 320px;
+}
+
+.btn-group + .btn-group {
+    margin-left: 5px;
+}
+
+.vote-status {
+    display: inline-block;
+    width: 100%;
+    max-width: 80px;
+    font-size: 85%;
 }

@@ -1,10 +1,10 @@
-- var title = 'Investments'
+- title = 'Team'
 include ../_header
 
 .container
-  h2 Investments
+  h2 Team
   - if (current_user.get('isOp')) {
-  a(href='/companies/new') Open new vote
+  a(href='/partners/new') Invite new Partner
   - }
   include _list
 

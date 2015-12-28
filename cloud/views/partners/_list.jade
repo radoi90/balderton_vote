@@ -1,0 +1,14 @@
+table.table
+  thead
+    tr
+      th Name
+      th Email
+      th.hidden-xs Joined On
+  tbody
+    - partners.forEach(function(partner) {
+    tr
+      td
+        a(href='partners/#{partner.id}') #{partner.get('name')}
+      td #{partner.get('email')}
+      td.hidden-xs #{formatTime(partner.get('createdAt'))}
+    - })

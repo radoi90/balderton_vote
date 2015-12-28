@@ -1,0 +1,18 @@
+- var title = 'Edit Partner'
+include ../_header
+
+.container
+  h1 Edit Partner
+  form(method='post', action='/partners/#{partner.id}')
+    .form-group
+      label(for='name') Full name
+      input#name.form-control(type='text', name='name', placeholder='Full name', value="#{partner.get('name')}", required)
+    .form-group
+      label(for='email') Balderton email
+      input#name.form-control(type='email', name='email', placeholder='Balderton email', value="#{partner.get('email')}", required)
+    .form-group
+      input(type='hidden', name='_method', value='put')
+      .btn-group
+        input.btn.btn-primary(type='submit', value='Update')
+      .btn-group
+        a.btn.btn-default(href='/partners/#{partner.id}') Cancel

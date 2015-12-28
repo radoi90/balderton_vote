@@ -1,10 +1,10 @@
 var _ = require('underscore');
 
+// Signs up a new user with the specified paramaters.
 exports.signup = function(req, res) {
 	var user = new Parse.User();
-	user.set(_.pick(req.body, 'email', 'password', 'name'));
-	user.set('username', req.body.email);
-	user.set('isOp', false);
+	user.set(_.pick(req.body, userParams));
+	user.set('username', user.get('email'));
 
 	user.signUp(null).then(function() {
 		res.redirect('/');
@@ -14,17 +14,21 @@ exports.signup = function(req, res) {
 	});
 };
 
+// Logs in a user with the specified credentials.
 exports.login = function(req, res) {
 	var email = req.body.email;
 	var password = req.body.password;
+
 	Parse.User.logIn(email, password).then(function() {
-		res.redirect('/');
+		var redirUrl = req['query']['redir'] || '/';
+		res.redirect(redirUrl);
 	},
 	function(error) {
-		res.redirect('/login');
+		res.redirect(req['url'] || '/login');
 	});
 };
 
+// Logs out the current user.
 exports.logout = function(req, res) {
 	if (Parse.User.current()) {
 		Parse.User.logOut().then(function() {
@@ -35,3 +39,5 @@ exports.logout = function(req, res) {
 		});
 	}
 };
+
+var userParams = ['email', 'password', 'name'];

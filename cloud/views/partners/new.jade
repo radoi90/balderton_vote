@@ -1,0 +1,22 @@
+- var title = 'New Partner'
+include ../_header
+
+.container
+  h1 New Partner
+
+  form(method='post', action='/partners')
+    .form-group
+      label(for='name') Full name
+      input#name.form-control(type='text', name='name', placeholder='Full name', required)
+
+    .form-group
+      label(for='email') Balderton email
+      input#name.form-control(type='email', name='email', placeholder='Balderton email', required)
+
+    .form-group
+      .btn-group
+        input.btn.btn-primary(type='submit', value='Create Partner')
+      .btn-group
+        a.btn.btn-default(href='/partners') Cancel
+
+include ../_footer

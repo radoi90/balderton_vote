@@ -1,26 +1,23 @@
+- var title = vote.company.get('name')
+- var stylesheet = 'vote'
 include ../_header
 
 .container
-  section#company_information
-    h1 Company: #{company.get('name')}
-    h3 Result:
-    - if (company.get('result')) {
-      #{company.get('result')}
-    - } else if (company.get('isVotingOpen')) {
-      Vote open
-    - } else {
-      Vote cancelled
-    - }
+  a(href='/companies') Back to Investments
+  
+  section#vote_information
+    include ../votes/_vote
 
-  section#company_voters
-    h3 Partner votes:
-    - voters.forEach(function(voter) {
-    - })
-
+  - if (current_user.get('isOp')) {
   section#company_actions
-    a.btn.btn-default(href='/companies/#{company.id}/edit') Edit
-    form(method='POST', action='/companies/#{company.id}')
-      input(type='hidden', name='_method', value='DELETE')
-      input.btn.btn-danger(type='submit', value='Delete')
+    h3 Admin Actions
+    .form-group
+      .btn-group
+        a.btn.btn-default(href='/companies/#{vote.company.id}/edit') Edit Company
+      .btn-group
+        form(method='POST', action='/companies/#{vote.company.id}')
+          input(type='hidden', name='_method', value='DELETE')
+          input.btn.btn-danger(type='submit', value='Delete Company & votes')
+  - }
 
 include ../_footer

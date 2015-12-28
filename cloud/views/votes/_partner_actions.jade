@@ -1,0 +1,35 @@
+- var currentVoter = _.find(vote.voters, function(voter) { return voter.id === current_user.id})
+- var partnerVote = currentVoter && currentVoter.get('vote');
+
+.row
+  .col-xs-12
+    - if (partnerVote) {
+      - if (vote.company.get('isVotingOpen')) {
+        form(method='post', action='votes/#{vote.company.id}')
+          .form-group 
+            - if (partnerVote.get('mark')) {
+              label
+                h3 Your vote: 
+                  span#mark.label.label-primary= partnerVote.get('mark')
+              .btn-group
+                input.btn.btn-default(type='submit', value='Edit')
+            - } else {
+              label
+                h3 Your vote: 
+              select#mark.form-control(name='mark')
+                each val in _.range(1, 11)
+                  option(value='#{val}')= val
+              input.btn.btn-success(type='submit', value='Vote')
+            - }
+      - } else {
+        h3 Your vote: 
+          - if (partnerVote.get('mark')) {
+            span.label.label-primary= partnerVote.get('mark')
+          - } else {
+            span.label.label-default Not voted
+          - }
+      - }
+    - } else {
+      h3 Your vote: 
+        span.label.label-default Not voting
+    - }

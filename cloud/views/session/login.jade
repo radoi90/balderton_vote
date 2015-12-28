@@ -1,4 +1,4 @@
-- var stylesheet = "session"
+
 - var title = "Log In"
 
 include ../_header
@@ -8,7 +8,7 @@ include ../_header
     a(href='/signup') Create Account
     
   
-  form(method='post', action='/login')
+  form(method='post', action='#{url}')
     .form-group
       label(for='email') Balderton email
       input#email.form-control(type='email', name='email', placeholder='Balderton email')

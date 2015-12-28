@@ -1,0 +1,37 @@
+- var title = "BDT Vote"
+- var stylesheet = 'vote'
+include ../_header
+
+.container
+  .page-header
+    h1 #{current_user.get('isOp') ? 'Operating ' : ''}Partner Dashboard
+  
+  - if (current_user.get('isOp')) {
+    section.admin-actions
+      div.btn-group
+        a.btn.btn-default(href='/companies/new') Open new vote
+  - }
+  
+  section.active-vote
+    .panel.panel-default
+      .panel-heading
+        h2.panel-title #{(vote && vote.company.get('result')) ? 'Recent' : 'Active' } vote
+      .panel-body
+        - if (vote) {
+          include ../votes/_vote      
+        - } else {
+          span No active vote.
+        - }
+
+  section.voting-history
+    .panel.panel-default
+      .panel-heading
+        h2.panel-title Recent votes
+      .panel-body
+        - if (!_.isEmpty(companies)) {
+          include ../companies/_list
+        - } else {
+          span No voting history.
+        - }
+
+include ../_footer

@@ -2,14 +2,17 @@ doctype html
 html(lang="en")
   head
     meta(charset="utf-8")
-    title Balderton Vote #{typeof title === "undefined" ? "" : " - " + title}
+    title #{typeof title === "undefined" ? "Balderton Vote" : title}
     meta(name='viewport', content='width=device-width, initial-scale=1')
+
+    link(rel='home', href='https://bdtvoteved.parseapp.com/')
+    base(href='https://bdtvoteved.parseapp.com/')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css', integrity='sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7', crossorigin='anonymous')
     link(rel='stylesheet', href='/stylesheets/main.css')
     - if (typeof stylesheet !== "undefined") {
       link(rel='stylesheet', href='/stylesheets/#{stylesheet}.css')
     - }
-    link(rel='shortcut icon', href='img/favicon.ico?v=4')
+    link(rel='shortcut icon', href='img/favicon.ico')
     link(rel='apple-touch-icon', sizes='57x57', href='img/apple-icon-57x57.png')
     link(rel='apple-touch-icon', sizes='60x60', href='img/apple-icon-60x60.png')
     link(rel='apple-touch-icon', sizes='72x72', href='img/apple-icon-72x72.png')
@@ -30,6 +33,6 @@ html(lang="en")
     script(type='text/javascript').
       try{Typekit.load();}catch(e){}
   body
-    - if (Parse.User.current()) {
+    - if (current_user) {
     include _navbar
     - }

@@ -1,0 +1,24 @@
+.row
+  .col-xs-12
+    - if (vote.company.get('result')) {
+    .btn-group
+      a.btn.btn-default(href='#') Export voting data
+    - }
+    - if (vote.company.get('isVotingOpen') && vote.allPartnersVoted) {
+    .btn-group
+      form(method='post', action='/votes/#{vote.company.id}')
+        input(type='hidden', name='_method', value='PUT')
+        input(type='hidden', name='method', value='tally')
+        input(type='hidden', name='isVotingOpen', value='false')
+        input.btn.btn-success(type='submit', value='Tally vote')
+    - }
+    .btn-group
+      form(method='post', action='/votes/#{vote.company.id}')
+        input(type='hidden', name='_method', value='PUT')
+        input(type='hidden', name='method', value='toggle')
+        input(type='hidden', name='isVotingOpen', value="#{!vote.company.get('isVotingOpen')}")
+        - if (vote.company.get('isVotingOpen')) {
+          input.btn.btn-danger(type='submit', value='Cancel vote')
+        - } else {
+          input.btn.btn-default(type='submit', value='Re-open vote')
+        - }

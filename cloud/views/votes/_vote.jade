@@ -1,0 +1,37 @@
+- var currentVoter = _.find(vote.voters, function(voter) { return voter.id === current_user.id})
+- var partnerVote = currentVoter && currentVoter.get('vote');
+
+.row
+  .col-xs-12
+    h2 Company: 
+      a(href='/companies/#{vote.company.id}') #{vote.company.get('name')}
+
+- if (current_user.get('isOp')) {
+include _admin_actions
+- } else {
+include _partner_actions
+- }
+
+.row
+  .col-xs-12.col-sm-6
+    h3 Result: 
+      - if (vote.company.get('isVotingOpen')) {
+        span Waiting for votes
+      - } else {
+        - if(vote.company.get('result')) {
+          span.label(class="label-#{vote.company.get('result') >= 8 ? 'success' : 'danger'}") #{vote.company.get('result') >= 8 ? 'Passed' : 'Failed'}: #{vote.company.get('result')} 
+        - } else {
+          span.label.label-default Cancelled
+        - }
+      - }
+
+    - if (vote.company.get('isVotingOpen')) {
+      .progress
+        .progress-bar(role='progressbar', aria-valuenow='#{vote.progress * 100}', aria-valuemin='0', aria-valuemax='100', style="width: #{vote.progress * 100}%;")
+          span #{Math.floor(vote.progress * 100)}% Complete
+    - }
+
+.row
+  - if (current_user.get('isOp') || vote.company.get('result')) {
+    include _voter_info
+  - }

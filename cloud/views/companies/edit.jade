@@ -7,9 +7,12 @@ include ../_header
   form(method='post', action='/companies/#{company.id}')
     .form-group
       label(for='name') Company Name
-      input#name.form-control(type='text', name='name', placeholder='Company name', value="#{company.get('name')}")
+      input#name.form-control(type='text', name='name', placeholder='Company name', value="#{company.get('name')}", required)
     .form-group
       input(type='hidden', name='_method', value='put')
-      input.btn.btn-default(type='submit', value='Update')
+      .btn-group
+        input.btn.btn-primary(type='submit', value='Update')
+      .btn-group
+        a.btn.btn-default(href="/companies/#{company.id}") Cancel
 
 include ../_footer
