@@ -30,14 +30,12 @@ exports.login = function(req, res) {
 
 // Logs out the current user.
 exports.logout = function(req, res) {
-	if (Parse.User.current()) {
-		Parse.User.logOut().then(function() {
-			res.redirect('/login');
-		},
-		function(error) {
-			res.redirect('/')
-		});
-	}
+	Parse.User.logOut().then(function() {
+		res.redirect('/login');
+	},
+	function(error) {
+		res.redirect('/')
+	});
 };
 
 var userParams = ['email', 'password', 'name'];
