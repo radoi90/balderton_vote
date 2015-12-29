@@ -1,8 +1,8 @@
-var voting = require('cloud/helpers/voting.js');
+var votinHelper = require('cloud/helpers/voteHelper.js');
 
 // Display partner dashboard, with recent vote and company history.
 exports.index = function(req, res) {
-	Parse.Promise.when(voting.findVote(null), findRecentCompanies(10))
+	Parse.Promise.when(votinHelper.findVote({}), findRecentCompanies(10))
 	.then(function(vote, recentCompanies) {
 		res.render('home/index', {
 			vote: vote,

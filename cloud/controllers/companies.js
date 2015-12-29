@@ -1,5 +1,5 @@
 var _ = require('underscore');
-var voting = require('cloud/helpers/voting.js');
+var votingHelper = require('cloud/helpers/voteHelper.js');
 var Company = Parse.Object.extend('Company');
 
 // Display all companies.
@@ -38,7 +38,7 @@ exports.create = function(req, res) {
 exports.show = function(req, res) {
 	var companyId = req.params.id;
 
-	voting.findVote(companyId).then(function(vote) {
+	votingHelper.findVote({companyId: companyId}).then(function(vote) {
 		res.render('companies/show', {
 			vote: vote
 		}); 

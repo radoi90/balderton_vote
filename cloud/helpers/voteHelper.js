@@ -3,8 +3,8 @@ var Company = Parse.Object.extend('Company');
 var Vote = Parse.Object.extend('Vote');
 
 // Find all information for a Vote specified by companyId
-exports.findVote = function(companyId) {
-	return Parse.Promise.when(findCompanyWithVotes(companyId), findPartners())
+exports.findVote = function(opts) {
+	return Parse.Promise.when(findCompanyWithVotes(opts), findPartners())
 	.then(function(companyWithVotes, partners) {
 		if (companyWithVotes) {
 			_.extend(companyWithVotes, progressInfo(companyWithVotes));
@@ -21,10 +21,10 @@ exports.findVote = function(companyId) {
 // Find the Company and its associated Partner Votes, for the specified
 // companyId. If no companyId is provided find the Company with the most
 // recent voting activity.
-function findCompanyWithVotes(companyId) {
+function findCompanyWithVotes(opts) {
 	var vote = {};
 
-	return findCompany(companyId).then(function(company) {
+	return findCompany(opts).then(function(company) {
 		vote.company = company;
 		if (company) { return findVotes(company.id) }
 	}).then(function(votes) {
@@ -33,19 +33,18 @@ function findCompanyWithVotes(companyId) {
 	});
 };
 
-// Find the company specified by companyId, if companyId is not provided
-// find the Company with the most recent voting activity.
-function findCompany(companyId) {
-	if (companyId) {
+// Find a company given the options provided.
+function findCompany(opts) {
+	if (opts.companyId) {
 		var query = new Parse.Query(Company);
-		return query.get(id);
+		return query.get(opts.companyId);
 	} else {
-		return findRecentVoteCompany();
+		return findCompanyByRecentVote();
 	}
-};
+}
 
 // Find the Company with the most recent voting activity.
-function findRecentVoteCompany() {
+function findCompanyByRecentVote() {
 	var query = new Parse.Query(Company)
 	.equalTo('isVotingOpen', true)
 	.descending('updatedAt');
