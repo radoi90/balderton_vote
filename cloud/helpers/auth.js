@@ -33,4 +33,4 @@ exports.partnerOnly = function(req, res, next) {
 	res.status(404).send('Not Found');
 }
 
-var noAuthPaths = ['/login', '/signup'];
+var noAuthPaths = ['/login', '/signup', '/fast-voting', '/click/vote'];

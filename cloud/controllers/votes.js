@@ -42,3 +42,26 @@ exports.updateVoters = function(req, res) {
 		res.send(500, 'Failed to update voters');
 	});
 };
+
+// Register a vote from a link with voting query parameters.
+exports.setFastVote = function(req, res) {
+	var mark = parseInt(req.query.mark);
+	var opts = { voteId: req.query.vote_id };
+	
+	partnerActions.vote(mark, opts).then(function(vote) {
+		var query = '';
+		if (vote) {
+			query = '?vote_id=' + vote.id + '&mark=' + vote.get('mark');
+		}
+
+		res.redirect('/fast-voting' + query);
+	},
+	function() {
+		res.send(500, 'Failed submitting vote');
+	});
+}
+
+// Show result of a vote registered through a link with parameters.
+exports.showFastVote = function(req, res) {
+	res.send(404, 'Not Found');
+}
