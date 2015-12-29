@@ -1,11 +1,11 @@
-
+- var stylesheet = "session"
 - var title = "Log In"
 
 include ../_header
 
-.container
+.container.login
   h1 Log In or 
-    a(href='/signup') Create Account
+    a(href='/signup') Sign Up
     
   
   form(method='post', action='#{url}')
@@ -18,5 +18,3 @@ include ../_header
       input#password.form-control(type='password', name='password')
 
     button.btn.btn-default(type='submit') Log In
-
-include ../_footer
