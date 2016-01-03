@@ -29,12 +29,13 @@ function toggleVote(companyId, isOpen) {
 	return query.get(companyId).then(function(company) {
 		if (company) {
 			company.unset('result');
+			company.unset('passed');
 			return company.save({ isVotingOpen: isOpen });
 		}
 	});
 };
 
-// Computes result and closes vote for a vote specified by companyId.
+// Computes the outcome and closes vote for a vote specified by companyId.
 function tallyVote(companyId) {
 	var query = new Parse.Query(Company)
 	.equalTo('objectId', companyId)
@@ -43,7 +44,7 @@ function tallyVote(companyId) {
 	return query.first().then(function (company) {
 		if (company) { return getVotes(company.id); }
 	}).then(function (votes) {
-		if (votes) { return computeVoteResult(votes); }
+		if (votes) { return computeVoteOutcome(votes); }
 	}).then(function(company){
 		if (company) { return company.save({ isVotingOpen: false }); }
 	});
@@ -60,24 +61,47 @@ function getVotes(companyId) {
 	return query.find();
 };
 
-// If all partners have voted, set the result as the average of their marks.
-function computeVoteResult(votes) {
-	var allPartnersVoted = votes.length > 0 && _.reduce(votes,
-		function(allVoted, vote) { 
-			return allVoted && vote.has('mark');
-		}, true);
-
-	if (allPartnersVoted) {
-		var result =
-			_.reduce(votes, function(sum, vote) { 
-				return sum + vote.get('mark');
-			}, 0) / votes.length;
+// If all partners have voted, set the result and passed fields of the vote
+function computeVoteOutcome(votes) {
+	if (allPartnersVoted(votes)) {
+		var result = computeVoteResult(votes);
+		var passed = computeVotePassed(result, votes);
 
 		company = new Company();
 		company.id = votes[0].get('company').id;
-		return company.save({result: result});
+		return company.save({
+			result: result,
+			passed: passed
+		});
 	}
+
+	return Parse.Promise.as();
 };
+
+// Checks if all partners set their marks
+function allPartnersVoted(votes) {
+	if (votes.length <= 0) { return false; }
+
+	return !(_.any(votes, function(vote) {
+		return !vote.has('mark');
+	}));
+}
+
+// Computes overall vote result
+function computeVoteResult(votes) {
+	var markSum = _.reduce(votes, function(sum, vote) { 
+		return sum + vote.get('mark'); }, 0)
+
+	return  markSum / votes.length;
+}
+
+// Computes if vote passed
+function computeVotePassed(result, votes) {
+	var passingVotes = _.filter(votes, function(vote) {
+		return vote.get('mark') > 6;
+	});
+	return (passingVotes.length / votes.length) > 0.5;
+}
 
 // Invites Partners specified by partnerIds to vote on a Company
 // specified by companyId.

@@ -18,7 +18,7 @@
           td.hidden-xs #{partner.get('email')}
           td
             - if (vote.company.get('result')) {
-              span.vote-status.label.label-primary= partner.get('vote').get('mark')
+              span.vote-status.label(class="#{partner.get('vote').get('mark') > 6 ? 'label-success' : 'label-danger'}")= partner.get('vote').get('mark')
             - } else {
               - if (typeof partner.get('vote').get('mark') === 'undefined') {
                 span.vote-status.label.label-default Pending

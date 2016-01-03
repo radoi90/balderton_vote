@@ -19,7 +19,7 @@ include _partner_actions
         span Waiting for votes
       - } else {
         - if(vote.company.get('result')) {
-          span.label(class="label-#{vote.company.get('result') >= 8 ? 'success' : 'danger'}") #{vote.company.get('result') >= 8 ? 'Passed' : 'Failed'}: #{vote.company.get('result')} 
+          span.label(class="label-#{vote.company.get('passed') ? 'success' : 'danger'}") #{vote.company.get('passed') ? 'Passed' : 'Failed'}: #{vote.company.get('result')} 
         - } else {
           span.label.label-default Cancelled
         - }

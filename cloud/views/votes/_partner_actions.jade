@@ -10,7 +10,7 @@
             - if (partnerVote.get('mark')) {
               label
                 h3 Your vote: 
-                  span#mark.label.label-primary= partnerVote.get('mark')
+                  span#mark.label(class="#{partnerVote.get('mark') > 6 ? 'label-success' : 'label-danger'}")= partnerVote.get('mark')
               .btn-group
                 input.btn.btn-default(type='submit', value='Edit')
             - } else {

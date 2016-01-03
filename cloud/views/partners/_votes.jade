@@ -12,7 +12,7 @@ table.table
         a(href="companies/#{vote.get('company').id}") #{vote.get('company').get('name')}
       td #{vote.get('company').get('result') ? vote.get('mark') : 'pending' }
       - if (vote.get('company').get('result')) {
-        td: span.vote-status.label(class="label-#{vote.get('company').get('result') >= 8 ? 'success' : 'danger'}") #{vote.get('company').get('result') >= 8 ? 'Passed' : 'Failed'}: #{vote.get('company').get('result')} 
+        td: span.vote-status.label(class="label-#{vote.get('company').get('passed') ? 'success' : 'danger'}") #{vote.get('company').get('passed') ? 'Passed' : 'Failed'}: #{vote.get('company').get('result')} 
       - } else if (vote.get('company').get('isVotingOpen')) {
         td: span.vote-status.label.label-primary Pending
       - } else {
