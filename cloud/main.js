@@ -153,3 +153,34 @@ Parse.Cloud.afterSave('Vote', function(req) {
 		});
 	}
 });
+
+Parse.Cloud.afterDelete('Vote', function(req) {
+	var vote = req.object;
+
+	// Send invite email when Admin revokes a vote invitation
+	var query = new Parse.Query(Parse.User);
+	query.get(vote.get('partner').id).then(function(user) {
+		return Mandrill.sendTemplate('revoke-vote', [], {
+			to: [
+				{
+					email: user.get('email'),
+					name: user.get('name'),
+					type: "to"
+				}
+			],
+			merge_language: "mailchimp",
+			global_merge_vars: [
+				{
+					name: "ROOT_URL",
+					content: "bdtvoteved.parseapp.com"
+				}
+			]
+		}, false);
+	}).then(
+	function(httpResponse) {
+		console.log("Parner Vote revoke invite email sent.");
+	},
+	function(httpResponse) {
+		console.error("Something went wrong sending Partner Vote revoke invite email.");
+	});
+});
