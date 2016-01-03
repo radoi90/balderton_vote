@@ -46,22 +46,30 @@ exports.updateVoters = function(req, res) {
 // Register a vote from a link with voting query parameters.
 exports.setFastVote = function(req, res) {
 	var mark = parseInt(req.query.mark);
-	var opts = { voteId: req.query.vote_id };
+	var opts = { voteId: req.params.id };
 	
 	partnerActions.vote(mark, opts).then(function(vote) {
 		var query = '';
 		if (vote) {
-			query = '?vote_id=' + vote.id + '&mark=' + vote.get('mark');
+			query = '?vote_id=' + vote.get('company').id;
+			query += '&mark=' + vote.get('mark');
 		}
 
 		res.redirect('/fast-voting' + query);
 	},
-	function() {
-		res.send(500, 'Failed submitting vote');
+	function(error) {
+		res.send(error.code, error.message);
 	});
 }
 
 // Show result of a vote registered through a link with parameters.
 exports.showFastVote = function(req, res) {
-	res.send(404, 'Not Found');
+	if (req.query && req.query.vote_id && req.query.mark) {
+		res.render('votes/fast_vote', {
+			vote_id: req.query.vote_id,
+			mark: req.query.mark
+		});
+	} else {
+		res.send(500, 'Failed to displaying fast vote result.')
+	}
 }

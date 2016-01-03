@@ -1,0 +1,21 @@
+- var stylesheet = "fastvote"
+- var title = "Your vote"
+
+include ../_header
+
+.container.fastvote-container.text-center
+  .row.thank-you
+    .col-xs-12
+      h1 Thank you
+      
+      h3 You voted 
+        - if (mark > 6) {
+          span.label.label-success= mark
+        - } else {
+          span.label.label-danger= mark
+        - }
+
+  .row.disclaimer
+    .col-xs-12
+      p You can edit your vote and see the result in the Dashboard.
+      a.btn.btn-primary(href='/votes/#{vote_id}') View in Dashboard

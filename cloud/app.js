@@ -76,7 +76,7 @@ app.post('/votes/:id', auth.partnerOnly, votingController.vote);
 app.put('/votes/:id', auth.adminOnly, votingController.update);
 app.post('/votes/:id/voters', auth.adminOnly, votingController.updateVoters);
 
-app.get('/click/vote', votingController.setFastVote);
+app.get('/click/vote/:id', votingController.setFastVote);
 app.get('/fast-voting', votingController.showFastVote);
 
 // Required for initializing Express app in Cloud Code.
