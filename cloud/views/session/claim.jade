@@ -1,0 +1,20 @@
+- var stylesheet = "session"
+- var title = "Claim Account"
+
+include ../_header
+
+.container.session-container
+  h1 Claim account 
+  
+  form(method='post', action='/claim/#{user.id}')
+    input(type='hidden', name='_method', value='put')
+    input(type='hidden', name='email', value="#{user.get('email')}")
+    .form-group
+      label(for='email') Balderton email
+      input#email.form-control(type='email', value="#{user.get('email')}", disabled)
+
+    .form-group
+      label(for='password') Password
+      input#password.form-control(type='password', name='password')
+
+    button.btn.btn-default(type='submit') Claim account

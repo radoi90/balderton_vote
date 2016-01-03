@@ -46,6 +46,8 @@ app.post('/login', sessionController.login);
 app.get('/signup', function(req, res) { res.render('session/signup'); });
 app.post('/signup', sessionController.signup);
 app.get('/logout', sessionController.logout);
+app.get('/claim/:id', sessionController.claim);
+app.put('/claim/:id', sessionController.setPassword)
 
 // Show partner dashboard on homepage
 app.get('/', homeController.index);

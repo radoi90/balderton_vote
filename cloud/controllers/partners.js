@@ -88,6 +88,7 @@ exports.update = function(req, res) {
 	partner.id = req.params.id;
 	partner.set(_.pick(req.body, partnerParams));
 	partner.set('username', partner.get('email'));
+	partner.set('isClaimed', false);
 	
 	partner.save().then(function() {
 		res.redirect('/partners/' + partner.id);
