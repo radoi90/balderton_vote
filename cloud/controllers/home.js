@@ -10,7 +10,7 @@ exports.index = function(req, res) {
 		}); 
 	},
 	function(){
-		res.send(500, 'Failed loading Admin dashboard')
+		res.send(500, 'Failed loading dashboard')
 	});
 };
 
