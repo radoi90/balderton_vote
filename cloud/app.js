@@ -42,6 +42,9 @@ app.get('/login', function(req, res) {
 		url: req["url"]
 	});
 });
+app.get('/profile', function(req, res) {
+	res.render('session/profile', {});
+});
 app.post('/login', sessionController.login);
 app.get('/signup', function(req, res) { res.render('session/signup'); });
 app.post('/signup', sessionController.signup);

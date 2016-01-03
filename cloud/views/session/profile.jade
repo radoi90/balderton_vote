@@ -1,0 +1,22 @@
+- var title = 'Profile';
+
+include ../_header
+.container
+  a(href='/') Back to Home
+
+  section#partner_information
+    h1 Partner: #{current_user.get('name')}
+    h3 Email: 
+      a(href='mailto:#{current_user.get('email')}') #{current_user.get('email')}
+
+    form(method='post', action='/claim/#{current_user.id}')
+      input(type='hidden', name='_method', value='put')
+      input(type='hidden', name='email', value="#{current_user.get('email')}")
+
+      .form-group
+        label(for='password') Password
+        input#password.form-control(type='password', name='password')
+
+      button.btn.btn-default(type='submit') Set new password
+
+include ../_footer
