@@ -26,7 +26,7 @@ include ../_header
     h3 Admin Actions
     .form-group
       .btn-group
-        a.btn.btn-default(href="mailto:#{partner.get('email')}?subject=Join Balderton Investment voting platform&body=Hi #{partner.get('name')}, Follow this link to claim your Partner profile: https://bdtvoteved.parseapp.com/join/#{partner.get('authToken')}") Re-send invite
+        a.btn.btn-default(href="mailto:#{partner.get('email')}?subject=Join Balderton Investment voting platform&body=Hi #{partner.get('name')}, Follow this link to claim your Partner profile: https://bdtvoteved.parseapp.com/claim/#{partner.id}") Re-send invite
     .form-group
       .btn-group
         a.btn.btn-default(href='partners/#{partner.id}/edit') Edit
