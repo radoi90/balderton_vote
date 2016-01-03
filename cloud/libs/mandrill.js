@@ -1,4 +1,4 @@
-var mandrillKey = '';
+var mandrillKey = 'G4lNNhGFhEf4jVdCY1Ljxg';
 
 Mandrill = require('mandrill')
 Mandrill.initialize(mandrillKey);
