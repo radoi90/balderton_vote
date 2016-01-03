@@ -44,8 +44,8 @@ Parse.Cloud.afterDelete('Company', function(req) {
 	
 	query.find().then(function(votes) {
 		return Parse.Object.destroyAll(votes);
-	}).fail(function(error) {
-		console.error("Error deleting related votes " + error.code + ": " + error.message);
+	}).fail(function() {
+		console.error("Error deleting related votes");
 	});
 });
 
