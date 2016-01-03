@@ -1,4 +1,5 @@
 require('cloud/app.js');
+var Mandrill = require('cloud/libs/mandrill.js');
 
 Parse.Cloud.beforeSave('Company', function(req, res) {
 	var company = req.object;
