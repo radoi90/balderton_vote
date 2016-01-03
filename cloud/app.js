@@ -2,7 +2,7 @@ var express = require('express');
 var moment = require('moment');
 var _ = require('underscore');
 
-// Force https traffic
+// Channel traffic through https
 var parseExpressHttpsRedirect = require('parse-express-https-redirect');
 
 // Use Parse for authentication
