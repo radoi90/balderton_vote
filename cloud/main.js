@@ -19,6 +19,23 @@ Parse.Cloud.beforeSave('Company', function(req, res) {
 	res.success();
 });
 
+Parse.Cloud.define('sendVoteResult', function(req, res) {
+	var company = new Company();
+	company.set(req.params);
+	
+	// Get all partners that voted on this company, email them the result
+	var query = new Parse.Query('Vote');
+	query.equalTo('company', company);
+	query.include('partner');
+
+	query.each(function(vote) {
+		return mailer.sendVoteResult(company, vote);
+	}).then(
+		function() { res.success('Succesfully sent vote result emails'); },
+		function() { res.error('An error has occured sending result emails') }
+	);
+});
+
 Parse.Cloud.afterDelete('Company', function(req) {
 	// Cascade delete votes associated with the deleted Company
 	var company = req.object;

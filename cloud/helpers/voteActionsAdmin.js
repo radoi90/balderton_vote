@@ -37,16 +37,22 @@ function toggleVote(companyId, isOpen) {
 
 // Computes the outcome and closes vote for a vote specified by companyId.
 function tallyVote(companyId) {
-	var query = new Parse.Query(Company)
-	.equalTo('objectId', companyId)
-	.equalTo('isVotingOpen', true);
+	var company;
+	var query = new Parse.Query(Company);
+	query.equalTo('objectId', companyId);
+	query.equalTo('isVotingOpen', true);
 
-	return query.first().then(function (company) {
-		if (company) { return getVotes(company.id); }
+	return query.first().then(function(foundCompany) {
+		if (foundCompany) {
+			company = foundCompany;
+			return company.save({ isVotingOpen: false });
+		}
+	}).then(function () {
+		return getVotes(company.id);
 	}).then(function (votes) {
-		if (votes) { return computeVoteOutcome(votes); }
-	}).then(function(company){
-		if (company) { return company.save({ isVotingOpen: false }); }
+		if (votes) { return computeVoteOutcome(company, votes); }
+	}).then(function () {
+		return Parse.Cloud.run('sendVoteResult', company.toJSON());
 	});
 };
 
@@ -55,27 +61,27 @@ function getVotes(companyId) {
 	var company = new Company();
 	company.id = companyId;
 
-	var query = new Parse.Query(Vote)
-	.equalTo('company', company);
+	var query = new Parse.Query(Vote);
+	query.equalTo('company', company);
 
 	return query.find();
 };
 
 // If all partners have voted, set the result and passed fields of the vote
-function computeVoteOutcome(votes) {
+function computeVoteOutcome(company, votes) {
 	if (allPartnersVoted(votes)) {
 		var result = computeVoteResult(votes);
 		var passed = computeVotePassed(result, votes);
 
-		company = new Company();
-		company.id = votes[0].get('company').id;
 		return company.save({
 			result: result,
 			passed: passed
 		});
+	} else {
+		var error = new Parse.Error(403,
+			'Can not close vote until all partners vote');
+		return Parse.Promise.error(error);
 	}
-
-	return Parse.Promise.as();
 };
 
 // Checks if all partners set their marks
