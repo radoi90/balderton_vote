@@ -40,7 +40,10 @@ function getPartnerVote(partnerId, companyId) {
 
 // If voting is still open saves a new mark for a specified artner Vote.
 function setMark(mark, vote) {
-	if (!vote.get('company').get('isVotingOpen')) { return };
+	if (!vote.get('company').get('isVotingOpen')) {
+		var error = new Parse.Error(403, 'Vote closed, can not set new mark');
+   		return Parse.Promise.error(error);
+	};
 
 	// Cancel the vote if the mark is not a number
 	if (isNaN(mark)) {
