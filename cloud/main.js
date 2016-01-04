@@ -81,7 +81,7 @@ Parse.Cloud.afterSave(Parse.User, function(req) {
 
 	// Send welcome email when Admin creates an account
 	if (!existed && !user.get('isClaimed')) {
-		mailerHelper.sendPartnerInvite(user);
+		mailer.sendPartnerInvite(user);
 	}
 });
 
