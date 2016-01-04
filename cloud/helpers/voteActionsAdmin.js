@@ -104,7 +104,7 @@ function computeVoteResult(votes) {
 // Computes if vote passed
 function computeVotePassed(result, votes) {
 	var passingVotes = _.filter(votes, function(vote) {
-		return vote.get('mark') > 6;
+		return vote.get('mark') >= 6;
 	});
 	return (passingVotes.length / votes.length) > 0.5;
 }
