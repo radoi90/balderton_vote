@@ -55,3 +55,11 @@ section {
     max-width: 80px;
     font-size: 85%;
 }
+
+.form-group.trix-group {
+    max-width: 512px;
+}
+
+trix-editor {
+    min-height: 120px!important;
+}

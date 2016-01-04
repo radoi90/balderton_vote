@@ -10,6 +10,11 @@ include ../_header
       label(for='name') Name
       input#name.form-control(type='text', name='name', placeholder='Name', required)
 
+    .form-group.trix-group
+      label(for='description') Description
+      input#description(type='hidden', name='description')
+      trix-editor(input='description')
+
     .form-group
       .btn-group
         input.btn.btn-primary(type='submit', value='Create Company')

@@ -92,4 +92,4 @@ exports.delete = function(req, res) {
 	});
 };
 
-var companyParams = ['name'];
+var companyParams = ['name', 'description'];

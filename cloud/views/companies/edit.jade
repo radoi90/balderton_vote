@@ -8,6 +8,11 @@ include ../_header
     .form-group
       label(for='name') Company Name
       input#name.form-control(type='text', name='name', placeholder='Company name', value="#{company.get('name')}", required)
+    .form-group.trix-group
+      label(for='description') Description
+      input#description(type='hidden', name='description', value='#{company.get('description')}')
+      trix-editor(input='description')
+
     .form-group
       input(type='hidden', name='_method', value='put')
       .btn-group

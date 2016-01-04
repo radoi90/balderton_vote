@@ -4,7 +4,9 @@
 .row
   .col-xs-12
     h2 Company: 
-      a(href='/companies/#{vote.company.id}') #{vote.company.get('name')}
+      a(href='/companies/#{vote.company.id}')= vote.company.get('name')
+
+    .trix-content.well.well-sm!= vote.company.get('description') || 'No description provided.'
 
 - if (current_user.get('isOp')) {
 include _admin_actions

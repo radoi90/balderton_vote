@@ -56,6 +56,10 @@ exports.sendVoteInvite = function(vote) {
 			{
 				name: "COMPANY_NAME",
 				content: vote.get('company').get('name')
+			},
+			{
+				name: "DESCRIPTION",
+				content: vote.get('company').get('description')
 			}
 		],
 		merge_vars: [
