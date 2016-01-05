@@ -1,5 +1,5 @@
 var Mandrill = require('cloud/libs/mandrill.js');
-var ROOT_URL = "bdtvoteved.parseapp.com";
+var ROOT_URL = "https://bdtvoteved.parseapp.com";
 
 exports.sendPartnerInvite = function(user) {
 	return Mandrill.sendTemplate('new-partner-invite', [], {
