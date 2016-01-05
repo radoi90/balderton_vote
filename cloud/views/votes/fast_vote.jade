@@ -9,7 +9,7 @@ include ../_header
       h1 Thank you
       
       h3 You voted 
-        - if (mark > 6) {
+        - if (mark >= 6) {
           span.label.label-success= mark
         - } else {
           span.label.label-danger= mark
