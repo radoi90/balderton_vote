@@ -62,10 +62,12 @@
           td.text-center: input(type='checkbox', name="partnerIds[#{partner.id}]", data-selector-item='vote-revoke'))
           - }
         - })
+        - if (current_user.get('isOp') && vote.company.get('isVotingOpen')) {
         tr
           td
           td
           td.text-center: input.btn.btn-default(type='submit', value='Invite', data-selector-button='vote-revoke', disabled)
+        - }
   - } else {
     div No absent partners
   -}
