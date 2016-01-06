@@ -109,7 +109,6 @@ exports.sendVoteRevoke = function(vote) {
 exports.sendVoteResult = function(company, vote) {
 	var subject = company.get('name') + ' has ' + 
 			(company.get('passed') ? 'passed' : 'failed') + ' the vote';
-	console.log(subject);
 
 	return Mandrill.sendTemplate('vote-result', [], {
 		subject: subject,
