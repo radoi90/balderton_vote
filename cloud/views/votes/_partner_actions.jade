@@ -24,7 +24,7 @@
       - } else {
         h3 Your vote: 
           - if (partnerVote.get('mark')) {
-            span.label.label-primary= partnerVote.get('mark')
+            span.label(class="#{partnerVote.get('mark') >= 6 ? 'label-success' : 'label-danger'}")= partnerVote.get('mark')
           - } else {
             span.label.label-default Not voted
           - }
