@@ -30,7 +30,7 @@
             td
               form(method='post', action='/votes/#{vote.company.id}/voters/')
                 input(type='hidden', name='action', value='revoke')
-                input(type='hidden', name='partnerIds[]', value='#{partner.id}')
+                input(type='hidden', name='partnerIds[#{partner.id}]', value='on')
                 input.btn.btn-default(type='submit', value='Revoke')
           - }
         - })
@@ -42,28 +42,30 @@
   h3 Not voting:
   
   - if (vote.absents.length > 0) {
-  table.table
-    thead
-      tr
-        th Name
-        th.hidden-xs Email
-        - if (current_user.get('isOp') && vote.company.get('isVotingOpen')) { 
-        th Action
-        - }
-    tbody
-      - vote.absents.forEach(function(partner) {
-      tr
-        td
-          a(href='partners/#{partner.id}')= partner.get('name')
-        td.hidden-xs= partner.get('email')
-        - if (current_user.get('isOp') && vote.company.get('isVotingOpen') && !partner.get('isArchived')) { 
+  form(method='post', action='/votes/#{vote.company.id}/voters/')
+    input(type='hidden', name='action', value='invite')
+    table.table
+      thead
+        tr
+          th Name
+          th.hidden-xs Email
+          - if (current_user.get('isOp') && vote.company.get('isVotingOpen')) { 
+          th.text-center: input.check-all(type='checkbox', name='bulkCheck', data-selector='vote-revoke')
+          - }
+      tbody
+        - vote.absents.forEach(function(partner) {
+        tr
           td
-            form(method='post', action='/votes/#{vote.company.id}/voters/')
-              input(type='hidden', name='action', value='invite')
-              input(type='hidden', name='partnerIds[]', value='#{partner.id}')
-              input.btn.btn-default(type='submit', value='Invite')
-        - }
-      - })
+            a(href='partners/#{partner.id}')= partner.get('name')
+          td.hidden-xs= partner.get('email')
+          - if (current_user.get('isOp') && vote.company.get('isVotingOpen') && !partner.get('isArchived')) { 
+          td.text-center: input(type='checkbox', name="partnerIds[#{partner.id}]", data-selector-item='vote-revoke'))
+          - }
+        - })
+        tr
+          td
+          td
+          td.text-center: input.btn.btn-default(type='submit', value='Invite', data-selector-button='vote-revoke', disabled)
   - } else {
     div No absent partners
   -}

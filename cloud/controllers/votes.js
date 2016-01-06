@@ -1,3 +1,4 @@
+var _ = require('underscore');
 var adminActions = require('cloud/helpers/voteActionsAdmin');
 var partnerActions = require('cloud/helpers/voteActionsPartner');
 
@@ -33,7 +34,7 @@ exports.vote = function(req, res) {
 exports.updateVoters = function(req, res) {
 	var companyId = req.params.id;
 	var action = req.body.action;
-	var partnerIds = req.body.partnerIds;
+	var partnerIds = _.keys(req.body.partnerIds);
 
 	adminActions.updateVoters(action, partnerIds, companyId).then(function() {
 		res.redirect('/')
