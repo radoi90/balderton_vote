@@ -65,7 +65,7 @@
         - if (current_user.get('isOp') && vote.company.get('isVotingOpen')) {
         tr
           td
-          td
+          td.hidden-xs
           td.text-center: input.btn.btn-default(type='submit', value='Invite', data-selector-button='vote-revoke', disabled)
         - }
   - } else {
