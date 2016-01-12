@@ -10,9 +10,10 @@ table.table
     tr
       td
         a(href="companies/#{vote.get('company').id}") #{vote.get('company').get('name')}
-      td #{vote.get('company').get('result') ? vote.get('mark') : 'pending' }
-      - if (vote.get('company').get('result')) {
-        td: span.vote-status.label(class="label-#{vote.get('company').get('passed') ? 'success' : 'danger'}") #{vote.get('company').get('passed') ? 'Passed' : 'Failed'}: #{vote.get('company').get('result')} 
+      td #{vote.get('company').get('hasResult') ? vote.get('mark') : 'pending' }
+      - if (vote.get('company').get('hasResult')) {
+        td: span.vote-status.label(class="label-#{vote.get('company').get('passed') ? 'success' : 'danger'}") #{vote.get('company').get('passedTotal')}/#{vote.get('company').get('votesTotal')} 
+          span [#{vote.get('company').get('passed') ? 'Passed' : 'Failed'}]
       - } else if (vote.get('company').get('isVotingOpen')) {
         td: span.vote-status.label.label-primary Pending
       - } else {

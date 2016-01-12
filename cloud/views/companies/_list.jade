@@ -11,8 +11,9 @@ table.table
       th(scope='row') #{index + 1}
       td
         a(href='/companies/' + company.id) #{company.get('name')}
-      - if (company.get('result')) {
-      td: span.vote-status.label(class="label-#{company.get('passed') ? 'success' : 'danger'}") #{company.get('passed') ? 'Passed' : 'Failed'}: #{company.get('result')} 
+      - if (company.get('hasResult')) {
+      td: span.vote-status.label(class="label-#{company.get('passed') ? 'success' : 'danger'}") #{company.get('passedTotal')}/#{company.get('votesTotal')} 
+        span.hidden-xs [#{company.get('passed') ? 'Passed' : 'Failed'}]
       - } else if (company.get('isVotingOpen')) {
       td: span.vote-status.label.label-primary Pending
       - } else {

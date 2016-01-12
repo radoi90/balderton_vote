@@ -20,8 +20,9 @@ include _partner_actions
       - if (vote.company.get('isVotingOpen')) {
         span Waiting for votes
       - } else {
-        - if(vote.company.get('result')) {
-          span.label(class="label-#{vote.company.get('passed') ? 'success' : 'danger'}") #{vote.company.get('passed') ? 'Passed' : 'Failed'}: #{vote.company.get('result')} 
+        - if(vote.company.get('hasResult')) {
+          span.label(class="label-#{vote.company.get('passed') ? 'success' : 'danger'}") #{vote.company.get('passedTotal')}/#{vote.company.get('votesTotal')} 
+            span [#{vote.company.get('passed') ? 'Passed' : 'Failed'}]
         - } else {
           span.label.label-default Cancelled
         - }
@@ -34,6 +35,6 @@ include _partner_actions
     - }
 
 .row
-  - if (current_user.get('isOp') || vote.company.get('result')) {
+  - if (current_user.get('isOp') || vote.company.get('hasResult')) {
     include _voter_info
   - }

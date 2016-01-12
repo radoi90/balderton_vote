@@ -8,6 +8,7 @@ Parse.Cloud.beforeSave('Company', function(req, res) {
 	// Set default values for new Companies
 	if (!company.id) {
 		company.set('isVotingOpen', true);
+		company.set('hasResult', false);
 	}
 
 	// Check parameter requirements for Companies

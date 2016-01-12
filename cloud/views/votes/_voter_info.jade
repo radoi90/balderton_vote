@@ -6,7 +6,7 @@
         tr
           th Name
           th.hidden-xs Email
-          th= vote.company.get('result') ? 'Vote' : 'Status'
+          th= vote.company.get('hasResult') ? 'Vote' : 'Status'
           - if (current_user.get('isOp') && vote.company.get('isVotingOpen')) { 
             th Action
           - }
@@ -17,7 +17,7 @@
             a(href='partners/#{partner.id}') #{partner.get('name')}
           td.hidden-xs #{partner.get('email')}
           td
-            - if (vote.company.get('result')) {
+            - if (vote.company.get('hasResult')) {
               span.vote-status.label(class="#{partner.get('vote').get('mark') >= 6 ? 'label-success' : 'label-danger'}")= partner.get('vote').get('mark')
             - } else {
               - if (typeof partner.get('vote').get('mark') === 'undefined') {

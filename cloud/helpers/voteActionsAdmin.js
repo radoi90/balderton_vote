@@ -28,9 +28,10 @@ function toggleVote(companyId, isOpen) {
 	
 	return query.get(companyId).then(function(company) {
 		if (company) {
-			company.unset('result');
-			company.unset('passed');
-			return company.save({ isVotingOpen: isOpen });
+			return company.save({ 
+				isVotingOpen: isOpen,
+				hasResult: false
+			});
 		}
 	});
 };
@@ -71,11 +72,14 @@ function getVotes(companyId) {
 function computeVoteOutcome(company, votes) {
 	if (allPartnersVoted(votes)) {
 		var result = computeVoteResult(votes);
-		var passed = computeVotePassed(result, votes);
+		var totalVotesPassed = countVotesPassed(votes);
 
 		return company.save({
 			result: result,
-			passed: passed
+			votesTotal: votes.length,
+			passedTotal: totalVotesPassed,
+			passed: (totalVotesPassed / votes.length) > 0.5,
+			hasResult: true
 		});
 	} else {
 		var error = new Parse.Error(403,
@@ -101,12 +105,11 @@ function computeVoteResult(votes) {
 	return  markSum / votes.length;
 }
 
-// Computes if vote passed
-function computeVotePassed(result, votes) {
-	var passingVotes = _.filter(votes, function(vote) {
+// Counts the number of passing votes
+function countVotesPassed(votes) {
+	return _.filter(votes, function(vote) {
 		return vote.get('mark') >= 6;
-	});
-	return (passingVotes.length / votes.length) > 0.5;
+	}).length;
 }
 
 // Invites Partners specified by partnerIds to vote on a Company

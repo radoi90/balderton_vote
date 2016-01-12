@@ -15,7 +15,7 @@ include ../_header
   section.active-vote
     .panel.panel-default
       .panel-heading
-        h2.panel-title #{(vote && vote.company.get('result')) ? 'Recent' : 'Active' } vote
+        h2.panel-title #{(vote && vote.company.get('hasResult')) ? 'Recent' : 'Active' } vote
       .panel-body
         - if (vote) {
           include ../votes/_vote      
