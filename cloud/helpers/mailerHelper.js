@@ -134,8 +134,12 @@ exports.sendVoteResult = function(company, vote) {
 				content: company.get('passed')
 			},
 			{
-				name: "RESULT",
-				content: company.get('result')
+				name: "PASSED_VOTES",
+				content: company.get('passedTotal')
+			},
+			{
+				name: "FAILED_VOTES",
+				content: company.get('votesTotal') - company.get('passedTotal')
 			}
 		],
 		merge_vars: [
